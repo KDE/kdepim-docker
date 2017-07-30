@@ -37,4 +37,5 @@ sudo ${docker_exe} run \
     -v=/run/user/$(id -u)/pulse:/run/user/1000/pulse:rw,z \
     -v=$1:/home/neon/kdepim:rw,z \
     --privileged \
+    --name kdepim-dev \
     kdepim:dev
