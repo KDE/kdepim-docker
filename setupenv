@@ -1,0 +1,3 @@
+#!/bin/sh
+
+dbus-launch /bin/bash -l || echo "Failed to launch DBus: please consult README to make sure the Docker container is started correctly."
