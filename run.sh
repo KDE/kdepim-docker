@@ -6,6 +6,7 @@ if [ $(id -u) -eq 0 ]; then
 fi
 
 docker_exe="docker"
+container_name="kdepim-dev"
 
 usage()
 {
@@ -30,12 +31,27 @@ if [ -z $1 ]; then
     usage
 fi
 
-sudo ${docker_exe} run \
-    -ti \
-    -e=DISPLAY=$DISPLAY \
-    -v=/tmp/.X11-unix:/tmp/.X11-unix:rw,z \
-    -v=/run/user/$(id -u)/pulse:/run/user/1000/pulse:rw,z \
-    -v=$1:/home/neon/kdepim:rw,z \
-    --privileged \
-    --name kdepim-dev \
-    kdepim:dev
+# Is kdepim-dev already running?
+num=$(sudo ${docker_exe} ps -f name=${container_name} | wc -l)
+if [ ${num} -eq 2 ]; then
+    # Attach to it
+    sudo ${docker_exe} attach ${container_name}
+else
+    # Just stopped?
+    num=$(sudo ${docker_exe} ps -a -f name=${container_name} | wc -l)
+    if [ ${num} -eq 2 ]; then
+        # Start it and attach to it
+        sudo ${docker_exe} start -ai ${container_name}
+    else
+        # Create a new container from the kdepim:dev image
+        sudo ${docker_exe} run \
+            -ti \
+            -e=DISPLAY=$DISPLAY \
+            -v=/tmp/.X11-unix:/tmp/.X11-unix:rw,z \
+            -v=/run/user/$(id -u)/pulse:/run/user/1000/pulse:rw,z \
+            -v=$1:/home/neon/kdepim:rw,z \
+            --privileged \
+            --name ${container_name} \
+            kdepim:dev
+    fi
+fi

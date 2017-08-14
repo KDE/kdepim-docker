@@ -1,5 +1,10 @@
 #!/bin/sh
 
+if [ $(id -u) -eq 0 ]; then
+    echo "Don't run this script as root!"
+    exit 1
+fi
+
 docker_exe="docker"
 
 usage() {
@@ -20,4 +25,4 @@ while getopts ":n" o; do
 done
 shift $((OPTIND-1))
 
-${docker_exe} build --tag kdepim:dev .
+sudo ${docker_exe} build --tag kdepim:dev .

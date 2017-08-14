@@ -81,53 +81,18 @@ USER neon
 # Clone & setup kdesrc-build
 RUN git clone git://anongit.kde.org/kdesrc-build
 COPY kdesrc-buildrc kdesrc-build/kdesrc-buildrc
-COPY setupenv /home/neon/.setupenv
+COPY kdepim-env /home/neon/.kdepim-env
 RUN mkdir kdepim
 
-# Setup the environment for building KDE PIM
-RUN echo '\n\
-___kdesrcbuild() { \n\
-    pushd ~/kdesrc-build \n\ 
-    ./kdesrc-build $@ \n\
-    popd \n\
-} \n\
-alias kdesrc-build="___kdesrcbuild" \n\
-\n\
-export XDG_RUNTIME_DIR=/var/run/user/$UID \n\
-\n\
-export _PREFIX=/home/neon/kdepim/install \n\
-\n\
-export XDG_DATA_HOME=/home/neon/kdepim/home/local \n\
-export XDG_CONFIG_HOME=/home/neon/kdepim/home/config \n\
-\n\
-export PATH=/usr/local/nvidia/bin:${PATH} \n\
-export LD_LIBRARY_PATH=/usr/local/nvidia/lib:/usr/local/nvidia/lib64:${LD_LIBRARY_PATH} \n\
-\n\
-export PATH="${_PREFIX}/bin:${PATH:-/usr/local/bin:/usr/bin:/bin}" \n\
-export LD_LIBRARY_PATH="${_PREFIX}/lib:${_PREFIX}/lib/x86_64-linux-gnu:$LD_LIBRARY_PATH" \n\
-export QT_PLUGIN_PATH="${_PREFIX}/lib/x86_64-linux-gnu/plugins:${QT_PLUGIN_PATH:-/usr/lib/x86_64-linux-gnu/qt5/plugins}" \n\
-export QML2_IMPORT_PATH="${_PREFIX}/lib/x86_64-linux-gnu/qml:${QML2_IMPORT_PATH:-/usr/lib/x86_64-linux-gnu/qt5/qml}" \n\
-export PKG_CONFIG_PATH="${_PREFIX}/lib/x86_64-linux-gnu/pkgconfig:${PKG_CONFIG_PATH:-/usr/lib/x86_64-linux-gnu/pkgconfig}" \n\
-export XDG_DATA_DIRS="${_PREFIX}/share:${XDG_DATA_DIRS:-/usr/share}" \n\
-export SASL_PATH="${_PREFIX}/lib/x86_64-linux-gnu/sasl2:${SASL_PATH:-/usr/lib/x86_64-linux-gnu/sasl2}" \n\
-export XDG_CONFIG_DIRS="${_PREFIX}/etc/xdg:${XDG_CONFIG_DIRS:-/etc/xdg}" \n\
-export PATH="/usr/lib/ccache:$PATH" \n\
-export QT_SELECT=qt5 \n\
-\n\
-export CCACHE_DIR="/home/neon/kdepim/.ccache" \n\
-\n\
-export PULSE_SERVER=unix:/run/user/1000/pulse/native \n\
-
-' >> ~/.bashrc
+# Enable the environment
+RUN echo '\n\nsource /home/neon/.kdepim-env\n' >> ~/.bashrc
 
 # Make the ccache bigger (the default 5G is not enough for PIM)
 RUN mkdir /home/neon/kdepim/.ccache \
     && echo 'max_size = 10.0G' > /home/neon/kdepim/.ccache/ccache.conf
 
-# Some Qt apps don't show controls without this
-ENV QT_X11_NO_MITSHM 1    
-
 # Switch back to root to start system DBus
+# TODO: Not re-entrant (on restart). Can we get another console?
 USER root
 RUN mkdir -p /var/run/dbus
-CMD dbus-daemon --system --fork && su -c "/home/neon/.setupenv" -l neon
+CMD dbus-daemon --system --fork && su -c "dbus-launch /bin/bash" -l neon

@@ -1,0 +1,44 @@
+#!/bin/sh
+
+___kdesrcbuild() {
+    pushd ~/kdesrc-build
+    ./kdesrc-build $@
+    popd
+}
+alias kdesrc-build="___kdesrcbuild"
+
+# User-specific XDG vars
+export XDG_RUNTIME_DIR=/var/run/user/$(id -u)
+export XDG_DATA_HOME=/home/neon/kdepim/home/local
+export XDG_CONFIG_HOME=/home/neon/kdepim/home/config
+
+# NVIDIA environment
+export PATH=/usr/local/nvidia/bin:${PATH}
+export LD_LIBRARY_PATH=/usr/local/nvidia/lib:/usr/local/nvidia/lib64:${LD_LIBRARY_PATH}
+
+# KDE PIM environment
+export _PREFIX=/home/neon/kdepim/install
+export PATH=${_PREFIX}/bin:${PATH}
+export LD_LIBRARY_PATH=${_PREFIX}/lib:${_PREFIX}/lib/x86_64-linux-gnu:${LD_LIBRARY_PATH}
+export QT_PLUGIN_PATH=${_PREFIX}/lib/x86_64-linux-gnu/plugins:${QT_PLUGIN_PATH:-/usr/lib/x86_64-linux-gnu/qt5/plugins}
+export QML2_IMPORT_PATH=${_PREFIX}/lib/x86_64-linux-gnu/qml:${QML2_IMPORT_PATH:-/usr/lib/x86_64-linux-gnu/qt5/qml}
+export PKG_CONFIG_PATH=${_PREFIX}/lib/x86_64-linux-gnu/pkgconfig:${PKG_CONFIG_PATH:-/usr/lib/x86_64-linux-gnu/pkgconfig}
+export XDG_DATA_DIRS=${_PREFIX}/share:${XDG_DATA_DIRS:-/usr/share}
+export XDG_CONFIG_DIRS=${_PREFIX}/etc/xdg:${XDG_CONFIG_DIRS:-/etc/xdg}
+export SASL_PATH=${_PREFIX}/lib/x86_64-linux-gnu/sasl2:${SASL_PATH:-/usr/lib/x86_64-linux-gnu/sasl2}
+
+# QtChooser
+export QT_SELECT=qt5
+
+# Enable and configure ccache
+export PATH=/usr/lib/ccache:$PATH
+export CCACHE_DIR=/home/neon/kdepim/.ccache
+
+# Point Pulse clients to host pulseaudio server
+export PULSE_SERVER=unix:/run/user/1000/pulse/native
+
+# Lie to KDE, as usual
+export KDE_FULL_SESSION=1
+
+# Without this Qt sometimes does not render UI properly
+export QT_X11_NO_MITSHM=1
