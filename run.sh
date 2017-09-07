@@ -15,10 +15,13 @@ usage()
     exit 1
 }
 
-while getopts "n" o; do
+while getopts "na" o; do
     case "${o}" in
         n)
             docker_exe="nvidia-docker"
+            ;;
+        a)
+            attach=true
             ;;
         *)
             usage
@@ -34,8 +37,12 @@ fi
 # Is kdepim-dev already running?
 num=$(sudo ${docker_exe} ps -f name=${container_name} | wc -l)
 if [ ${num} -eq 2 ]; then
-    # Attach to it
-    sudo ${docker_exe} attach ${container_name}
+    if [ "${attach}" = true ]; then
+        # Attach to it
+        sudo ${docker_exe} attach ${container_name}
+    else
+        sudo ${docker_exe} exec -it -u neon ${container_name} bash
+    fi
 else
     # Just stopped?
     num=$(sudo ${docker_exe} ps -a -f name=${container_name} | wc -l)
