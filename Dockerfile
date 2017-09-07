@@ -47,7 +47,7 @@ RUN apt-get install -y --no-install-recommends \
   libkf5notifications-dev libkf5notifyconfig-dev libkf5parts-dev libkf5runner-dev \
   libkf5service-dev libkf5sonnet-dev libkf5syntaxhighlighting-dev libkf5texteditor-dev \
   libkf5textwidgets-dev libkf5wallet-dev libkf5widgetsaddons-dev libkf5windowsystem-dev \
-  libkf5xmlgui-dev libkf5xmlrpcclient-dev libkf5kdgantt2-dev
+  libkf5xmlgui-dev libkf5xmlrpcclient-dev libkf5kdgantt2-dev libkf5networkmanagerqt-dev
 
 # runtime dependencies (MariaDB, postgresql)
 RUN apt-get install -y --no-install-recommends \
@@ -92,7 +92,10 @@ RUN mkdir /home/neon/kdepim/.ccache \
     && echo 'max_size = 10.0G' > /home/neon/kdepim/.ccache/ccache.conf
 
 # Switch back to root to start system DBus
-# TODO: Not re-entrant (on restart). Can we get another console?
 USER root
 RUN mkdir -p /var/run/dbus
-CMD dbus-daemon --system --fork && su -c "dbus-launch /bin/bash" -l neon
+
+# Copy init.sh and start it
+COPY init.sh /usr/local/bin/init.sh
+ENTRYPOINT [ "/usr/local/bin/init.sh" ]
+
