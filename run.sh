@@ -51,11 +51,12 @@ else
         sudo ${docker_exe} start -ai ${container_name}
     else
         # Create a new container from the kdepim:dev image
+        user=$(id -u)
         sudo ${docker_exe} run \
             -ti \
             -e=DISPLAY=$DISPLAY \
             -v=/tmp/.X11-unix:/tmp/.X11-unix:rw,z \
-            -v=/run/user/$(id -u)/pulse:/run/user/1000/pulse:rw,z \
+            -v=/run/user/${user}/pulse:/run/user/1000/pulse:rw,z \
             -v=$1:/home/neon/kdepim:rw,z \
             --privileged \
             --name ${container_name} \
