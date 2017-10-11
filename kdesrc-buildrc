@@ -1,9 +1,9 @@
 global
     # Don't change those values, would break the environment!
-    kdedir ~/kdepim/install
-    source-dir ~/kdepim/src
-    build-dir ~/kdepim/build
-    log-dir ~/kdepim/logs
+    kdedir /home/neon/kdepim/install
+    source-dir /home/neon/kdepim/src
+    build-dir /home/neon/kdepim/build
+    log-dir /home/neon/kdepim/logs
 
     # Use multiple cores for building. Other options to GNU make may also be
     # set.
@@ -16,8 +16,8 @@ global
    
 end global
 
-#include ~/kdesrc-build/kf5-frameworks-build-include
-include ~/kdesrc-build/kf5-kdepim-build-include
-#include ~/kdesrc-build/kf5-applications-build-include
-#include ~/kdesrc-build/kf5-workspace-build-include
+#include /home/neon/kdesrc-build/kf5-frameworks-build-include
+include /home/neon/kdesrc-build/kf5-kdepim-build-include
+#include /home/neon/kdesrc-build/kf5-applications-build-include
+#include /home/neon/kdesrc-build/kf5-workspace-build-include
 

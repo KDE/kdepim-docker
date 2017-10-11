@@ -80,11 +80,13 @@ USER neon
 
 # Clone & setup kdesrc-build
 RUN git clone git://anongit.kde.org/kdesrc-build
-COPY kdesrc-buildrc kdesrc-build/kdesrc-buildrc
+COPY kdesrc-buildrc .kdesrc-buildrc
+COPY kde-env /home/neon/.kde-env
 COPY kdepim-env /home/neon/.kdepim-env
 RUN mkdir kdepim
 
 # Enable the environment
+RUN echo '\n\nsource /home/neon/.kde-env\n' >> ~/.bashrc
 RUN echo '\n\nsource /home/neon/.kdepim-env\n' >> ~/.bashrc
 
 # Make the ccache bigger (the default 5G is not enough for PIM)
