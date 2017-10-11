@@ -5,7 +5,7 @@ if [ $(id -u) -eq 0 ]; then
     exit 1
 fi
 
-docker_exe="docker"
+docker_exe="sudo docker"
 container_name="kdepim-dev"
 
 usage()
@@ -35,24 +35,24 @@ if [ -z $1 ]; then
 fi
 
 # Is kdepim-dev already running?
-num=$(sudo ${docker_exe} ps -f name=${container_name} | wc -l)
+num=$(${docker_exe} ps -f name=${container_name} | wc -l)
 if [ ${num} -eq 2 ]; then
     if [ "${attach}" = true ]; then
         # Attach to it
-        sudo ${docker_exe} attach ${container_name}
+        ${docker_exe} attach ${container_name}
     else
-        sudo ${docker_exe} exec -it -u neon ${container_name} bash
+        ${docker_exe} exec -it -u neon ${container_name} bash
     fi
 else
     # Just stopped?
-    num=$(sudo ${docker_exe} ps -a -f name=${container_name} | wc -l)
+    num=$(${docker_exe} ps -a -f name=${container_name} | wc -l)
     if [ ${num} -eq 2 ]; then
         # Start it and attach to it
-        sudo ${docker_exe} start -ai ${container_name}
+        ${docker_exe} start -ai ${container_name}
     else
         # Create a new container from the kdepim:dev image
         user=$(id -u)
-        sudo ${docker_exe} run \
+        ${docker_exe} run \
             -ti \
             -e DISPLAY \
             -e ICECC_SERVER \
