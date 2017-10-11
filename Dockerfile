@@ -79,7 +79,10 @@ RUN mkdir -p /run/user/1000 && chown -R neon:neon /run/user/1000/
 USER neon
 
 # Clone & setup kdesrc-build
-RUN git clone git://anongit.kde.org/kdesrc-build
+
+RUN git config --global url."git://anongit.kde.org/".insteadOf kde: && \
+    git config --global url."ssh://git@git.kde.org/".pushInsteadOf kde:
+RUN git clone kde:kdesrc-build
 COPY kdesrc-buildrc .kdesrc-buildrc
 COPY kde-env /home/neon/.kde-env
 COPY kdepim-env /home/neon/.kdepim-env
