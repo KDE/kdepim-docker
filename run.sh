@@ -55,6 +55,7 @@ else
         sudo ${docker_exe} run \
             -ti \
             -e=DISPLAY=$DISPLAY \
+            -e ICECC_SERVER \
             -v=/tmp/.X11-unix:/tmp/.X11-unix:rw,z \
             -v=/run/user/${user}/pulse:/run/user/1000/pulse:rw,z \
             -v=$1:/home/neon/kdepim:rw,z \

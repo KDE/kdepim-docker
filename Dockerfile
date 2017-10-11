@@ -55,7 +55,7 @@ RUN apt-get install -y --no-install-recommends \
 
 # dependencies for development
 RUN apt-get install -y --no-install-recommends \
-  cmake-curses-gui ccache \
+  cmake-curses-gui ccache icecc\
   less vim strace qtcreator kdevelop valgrind gdb
 
 # Make polkit-1 writable - kalarm installs its policy there because
@@ -87,6 +87,7 @@ RUN git clone kde:kdesrc-build
 COPY kdesrc-buildrc .kdesrc-buildrc
 COPY kde-env /home/neon/.kde-env
 COPY kdepim-env /home/neon/.kdepim-env
+COPY start-iceccd.sh /home/neon/.start-iceccd.sh
 COPY setup-dbus.sh /home/neon/.setup-dbus.sh
 RUN mkdir kdepim
 
@@ -94,6 +95,7 @@ RUN mkdir kdepim
 RUN echo '\n\nsource /home/neon/.kde-env\n' >> ~/.bashrc
 RUN echo 'source /home/neon/.kdepim-env\n' >> ~/.bashrc
 RUN echo 'source /home/neon/.setup-dbus.sh\n' >> ~/.bashrc
+RUN echo 'source /home/neon/.start-iceccd.sh\n' >> ~/.bashrc
 
 # Make the ccache bigger (the default 5G is not enough for PIM)
 RUN mkdir /home/neon/kdepim/.ccache \
