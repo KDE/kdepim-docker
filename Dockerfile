@@ -74,6 +74,7 @@ RUN usermod -a -G audio neon
 
 # Make XDG_RUNTIME_DIR owned by the user
 RUN mkdir -p /run/user/1000 && chown -R neon:neon /run/user/1000/
+RUN mkdir -p /var/run/dbus
 
 ################# USER actions ####################
 USER neon
@@ -86,21 +87,18 @@ RUN git clone kde:kdesrc-build
 COPY kdesrc-buildrc .kdesrc-buildrc
 COPY kde-env /home/neon/.kde-env
 COPY kdepim-env /home/neon/.kdepim-env
+COPY setup-dbus.sh /home/neon/.setup-dbus.sh
 RUN mkdir kdepim
 
 # Enable the environment
 RUN echo '\n\nsource /home/neon/.kde-env\n' >> ~/.bashrc
-RUN echo '\n\nsource /home/neon/.kdepim-env\n' >> ~/.bashrc
+RUN echo 'source /home/neon/.kdepim-env\n' >> ~/.bashrc
+RUN echo 'source /home/neon/.setup-dbus.sh\n' >> ~/.bashrc
 
 # Make the ccache bigger (the default 5G is not enough for PIM)
 RUN mkdir /home/neon/kdepim/.ccache \
     && echo 'max_size = 10.0G' > /home/neon/kdepim/.ccache/ccache.conf
 
-# Switch back to root to start system DBus
-USER root
-RUN mkdir -p /var/run/dbus
-
 # Copy init.sh and start it
 COPY init.sh /usr/local/bin/init.sh
-ENTRYPOINT [ "/usr/local/bin/init.sh" ]
-
+ENTRYPOINT [ "/bin/bash" ]
