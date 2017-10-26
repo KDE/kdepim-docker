@@ -48,7 +48,7 @@ RUN apt-get install -y --no-install-recommends \
   libkf5service-dev libkf5sonnet-dev libkf5syntaxhighlighting-dev libkf5texteditor-dev \
   libkf5textwidgets-dev libkf5wallet-dev libkf5widgetsaddons-dev libkf5windowsystem-dev \
   libkf5xmlgui-dev libkf5xmlrpcclient-dev libkf5kdgantt2-dev libkf5networkmanagerqt-dev \
-  oxygen-icon-theme
+  oxygen-icon-theme gpgsm
 
 # runtime dependencies (MariaDB, postgresql)
 RUN apt-get install -y --no-install-recommends \
