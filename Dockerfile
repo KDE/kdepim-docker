@@ -47,7 +47,8 @@ RUN apt-get install -y --no-install-recommends \
   libkf5notifications-dev libkf5notifyconfig-dev libkf5parts-dev libkf5runner-dev \
   libkf5service-dev libkf5sonnet-dev libkf5syntaxhighlighting-dev libkf5texteditor-dev \
   libkf5textwidgets-dev libkf5wallet-dev libkf5widgetsaddons-dev libkf5windowsystem-dev \
-  libkf5xmlgui-dev libkf5xmlrpcclient-dev libkf5kdgantt2-dev libkf5networkmanagerqt-dev
+  libkf5xmlgui-dev libkf5xmlrpcclient-dev libkf5kdgantt2-dev libkf5networkmanagerqt-dev \
+  oxygen-icon-theme
 
 # runtime dependencies (MariaDB, postgresql)
 RUN apt-get install -y --no-install-recommends \
