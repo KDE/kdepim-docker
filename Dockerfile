@@ -15,7 +15,7 @@ ENV LD_LIBRARY_PATH /usr/local/nvidia/lib:/usr/local/nvidia/lib64:${LD_LIBRARY_P
 # Minimal dependencies
 RUN apt-get install -y --no-install-recommends \
   cmake extra-cmake-modules g++ gettext git libboost-all-dev \
-  libfreetype6-dev make
+  libfreetype6-dev make libyaml-perl
 
 # requirements for clazy
 #RUN apt-get install -y --no-install-recommends \
