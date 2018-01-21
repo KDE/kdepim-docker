@@ -57,7 +57,8 @@ RUN apt-get install -y --no-install-recommends \
 # dependencies for development
 RUN apt-get install -y --no-install-recommends \
   cmake-curses-gui ccache icecc\
-  less vim strace qtcreator kdevelop valgrind gdb
+  less vim strace qtcreator kdevelop valgrind gdb\
+  qt5-doc qt*5-doc
 
 # Make polkit-1 writable - kalarm installs its policy there because
 # that's where kauth frameworks expects it. This is a development
