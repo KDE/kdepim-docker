@@ -18,8 +18,8 @@ RUN apt-get install -y --no-install-recommends \
   libfreetype6-dev make libyaml-perl libyaml-libyaml-perl
 
 # requirements for clazy
-#RUN apt-get install -y --no-install-recommends \
-#  clang llvm-dev libclang-3.8-dev
+RUN apt-get install -y --no-install-recommends \
+  clang llvm-dev libclang-3.8-dev
 
 # build and install clazy
 #RUN git clone git://anongit.kde.org/clazy.git \
