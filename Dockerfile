@@ -33,7 +33,7 @@ RUN apt-get install -y --no-install-recommends \
   qtbase5-private-dev qtwebengine5-dev libqt5x11extras5-dev qttools5-dev \
   libqt5svg5-dev libqt5sql5-mysql libqt5sql5-psql \
   \
-  libassuan-dev bison libgrantlee5-dev libical-dev libkolabxml-dev libkolab-dev \
+  libassuan-dev bison libgrantlee5-dev libical2-dev libkolabxml-dev \
   libxslt-dev libphonon4qt5-dev libsqlite3-dev libxapian-dev xsltproc \
   libqgpgme7-dev libsasl2-dev libldap2-dev libqrencode-dev libdmtx-dev \
   \
@@ -41,7 +41,7 @@ RUN apt-get install -y --no-install-recommends \
   libkf5completion-dev libkf5config-dev libkf5configwidgets-dev \
   libkf5coreaddons-dev libkf5crash-dev libkf5dbusaddons-dev libkf5declarative-dev \
   libkf5dnssd-dev libkf5doctools-dev libkf5emoticons-dev \
-  libkf5globalaccel-dev libkf5guiaddons-dev libkf5i18n-dev libkf5iconthemes-dev \
+  libkf5globalaccel-dev libkf5guiaddons-dev libkf5holidays-dev libkf5i18n-dev libkf5iconthemes-dev \
   libkf5itemmodels-dev libkf5itemviews-dev libkf5jobwidgets-dev libkf5kcmutils-dev \
   libkf5kdelibs4support-dev libkf5kio-dev kross-dev libkf5newstuff-dev \
   libkf5notifications-dev libkf5notifyconfig-dev libkf5parts-dev libkf5runner-dev \
