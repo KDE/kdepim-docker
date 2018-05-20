@@ -10,7 +10,7 @@ LABEL com.nvidia.volumes.needed="nvidia_driver"
 RUN echo "/usr/local/nvidia/lib" >> /etc/ld.so.conf.d/nvidia.conf && \
     echo "/usr/local/nvidia/lib64" >> /etc/ld.so.conf.d/nvidia.conf
 ENV PATH /usr/local/nvidia/bin:/usr/local/cuda/bin:${PATH}
-ENV LD_LIBRARY_PATH /usr/local/nvidia/lib:/usr/local/nvidia/lib64:${LD_LIBRARY_PATH}  
+ENV LD_LIBRARY_PATH /usr/local/nvidia/lib:/usr/local/nvidia/lib64:${LD_LIBRARY_PATH}
 
 # Minimal dependencies
 RUN apt-get install -y --no-install-recommends \
@@ -52,7 +52,7 @@ RUN apt-get install -y --no-install-recommends \
 
 # runtime dependencies (MariaDB, postgresql)
 RUN apt-get install -y --no-install-recommends \
-  mariadb-server postgresql  
+  mariadb-server postgresql
 
 # dependencies for development
 RUN apt-get install -y --no-install-recommends \
