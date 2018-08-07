@@ -42,16 +42,16 @@ entire KDE PIM:
 `kdesrc-build kde-pim`
 
 This will take a lot of time the first time, but all subsequent builds will be
-faster thanks. You can also build use a specific repository name instead of the
-`kde-pim` group.
+faster thanks to ccache. You can also build just a single project by passing a
+specific repository name instead of the `kde-pim` group to kdesrc-build.
 
 Check the [kdesrc-build documentation](https://kdesrc-build.kde.org) for more
-details about KDE PIM.
+details about kdesrc-build.
 
 kdesrc-build will clone all the repositories into /home/neon/kdepim/src/kde/pim,
 build directories (where you can run `make` manually are in /home/neon/kdepim/build/kde/pim.
 The binaries are installed into /home/neon/kdepim/install (and the environment
-of the container is adjusted to work with the custom installation prefix).
+of the container is adjusted to work with this installation prefix).
 
 
 ## Development tools
