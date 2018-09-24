@@ -19,7 +19,7 @@ RUN apt-get install -y --no-install-recommends \
 
 # requirements for clazy
 RUN apt-get install -y --no-install-recommends \
-  clang llvm-dev libclang-3.8-dev
+  clang llvm-dev libclang-dev
 
 # build and install clazy
 #RUN git clone git://anongit.kde.org/clazy.git \
@@ -31,11 +31,11 @@ RUN apt-get install -y --no-install-recommends \
 # install KDE PIM dependencies
 RUN apt-get install -y --no-install-recommends \
   qtbase5-private-dev qtwebengine5-dev libqt5x11extras5-dev qttools5-dev \
-  libqt5svg5-dev libqt5sql5-mysql libqt5sql5-psql \
+  libqt5svg5-dev  libqt5texttospeech5-dev libqt5sql5-mysql libqt5sql5-psql \
   \
   libassuan-dev bison libgrantlee5-dev libical2-dev libkolabxml-dev \
   libxslt-dev libphonon4qt5-dev libsqlite3-dev libxapian-dev xsltproc \
-  libqgpgme7-dev libsasl2-dev libldap2-dev libqrencode-dev libdmtx-dev \
+  libgpgmepp-dev libgpgme-dev libsasl2-dev libldap2-dev libqrencode-dev libdmtx-dev \
   \
   libkf5archive-dev libkf5auth-dev libkf5bookmarks-dev libkf5codecs-dev \
   libkf5completion-dev libkf5config-dev libkf5configwidgets-dev \
@@ -47,7 +47,7 @@ RUN apt-get install -y --no-install-recommends \
   libkf5notifications-dev libkf5notifyconfig-dev libkf5parts-dev libkf5prison-dev libkf5runner-dev \
   libkf5service-dev libkf5sonnet-dev libkf5syntaxhighlighting-dev libkf5texteditor-dev \
   libkf5textwidgets-dev libkf5wallet-dev libkf5widgetsaddons-dev libkf5windowsystem-dev \
-  libkf5xmlgui-dev libkf5xmlrpcclient-dev libkf5kdgantt2-dev libkf5networkmanagerqt-dev \
+  libkf5xmlgui-dev libkf5xmlrpcclient-dev libkf5networkmanagerqt-dev \
   oxygen-icon-theme gpgsm pinentry-qt xsdcxx
 
 # runtime dependencies (MariaDB, postgresql)
