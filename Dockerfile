@@ -45,9 +45,9 @@ RUN apt-get install -y --no-install-recommends \
   libkf5itemmodels-dev libkf5itemviews-dev libkf5jobwidgets-dev libkf5kcmutils-dev \
   libkf5kdelibs4support-dev libkf5kio-dev kross-dev libkf5newstuff-dev \
   libkf5notifications-dev libkf5notifyconfig-dev libkf5parts-dev libkf5prison-dev libkf5runner-dev \
-  libkf5service-dev libkf5sonnet-dev libkf5syntaxhighlighting-dev libkf5texteditor-dev \
-  libkf5textwidgets-dev libkf5wallet-dev libkf5widgetsaddons-dev libkf5windowsystem-dev \
-  libkf5xmlgui-dev libkf5xmlrpcclient-dev libkf5networkmanagerqt-dev \
+  libkf5service-dev libkf5sonnet-dev libkf5syntaxhighlighting-dev libkf5syndication-dev \
+  libkf5texteditor-dev libkf5textwidgets-dev libkf5wallet-dev libkf5widgetsaddons-dev \
+  libkf5windowsystem-dev libkf5xmlgui-dev libkf5xmlrpcclient-dev libkf5networkmanagerqt-dev \
   oxygen-icon-theme gpgsm pinentry-qt xsdcxx
 
 # runtime dependencies (MariaDB, postgresql)
