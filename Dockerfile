@@ -32,7 +32,7 @@ RUN apt-get install -y --no-install-recommends \
 RUN apt-get install -y --no-install-recommends \
   qtbase5-private-dev qtwebengine5-dev libqt5x11extras5-dev qttools5-dev \
   libqt5svg5-dev  libqt5texttospeech5-dev libqt5sql5-mysql libqt5sql5-psql \
-  libqca-qt5-2-dev libqt5networkauth5-dev \
+  libqca-qt5-2-dev libqt5networkauth5-dev qtmultimedia5-dev \
   \
   libassuan-dev bison libgrantlee5-dev libical2-dev libkolabxml-dev \
   libxslt-dev libphonon4qt5-dev libsqlite3-dev libxapian-dev xsltproc \
