@@ -49,6 +49,7 @@ RUN apt-get install -y --no-install-recommends \
   libkf5service-dev libkf5sonnet-dev libkf5syntaxhighlighting-dev libkf5syndication-dev \
   libkf5texteditor-dev libkf5textwidgets-dev libkf5wallet-dev libkf5widgetsaddons-dev \
   libkf5windowsystem-dev libkf5xmlgui-dev libkf5xmlrpcclient-dev libkf5networkmanagerqt-dev \
+  libkf5purpose-dev \
   oxygen-icon-theme gpgsm pinentry-qt xsdcxx
 
 # runtime dependencies (MariaDB, postgresql)
