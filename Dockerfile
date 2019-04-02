@@ -1,4 +1,4 @@
-FROM kdeneon/plasma:dev-stable
+FROM kdeneon/plasma:unstable
 MAINTAINER Daniel Vrátil <dvratil@kde.org>
 
 USER root
