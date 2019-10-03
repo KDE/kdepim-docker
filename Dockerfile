@@ -12,13 +12,18 @@ RUN echo "/usr/local/nvidia/lib" >> /etc/ld.so.conf.d/nvidia.conf && \
 ENV PATH /usr/local/nvidia/bin:/usr/local/cuda/bin:${PATH}
 ENV LD_LIBRARY_PATH /usr/local/nvidia/lib:/usr/local/nvidia/lib64:${LD_LIBRARY_PATH}
 
+# uninstall the KDE PIM that ships in the base image
+RUN apt-get remove -y \
+  kdesdk-devenv-dependencies \
+  && apt autoremove -y
+
 # Minimal dependencies
-RUN apt-get install -y --no-install-recommends \
+RUN apt-get update && apt-get install -y --no-install-recommends \
   cmake extra-cmake-modules g++ gettext git libboost-all-dev \
   libfreetype6-dev make libyaml-perl libyaml-libyaml-perl
 
 # requirements for clazy
-RUN apt-get install -y --no-install-recommends \
+RUN apt-get update && apt-get install -y --no-install-recommends \
   clang llvm-dev libclang-dev
 
 # build and install clazy
@@ -27,9 +32,9 @@ RUN apt-get install -y --no-install-recommends \
 #    && cmake -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=Release \
 #    && make install
 #RUN rm -rf clazy
-
 # install KDE PIM dependencies
-RUN apt-get install -y --no-install-recommends \
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
   qtbase5-private-dev qtwebengine5-dev libqt5x11extras5-dev qttools5-dev \
   libqt5svg5-dev  libqt5texttospeech5-dev libqt5sql5-mysql libqt5sql5-psql \
   libqca-qt5-2-dev libqt5networkauth5-dev qtmultimedia5-dev \
@@ -50,14 +55,14 @@ RUN apt-get install -y --no-install-recommends \
   libkf5texteditor-dev libkf5textwidgets-dev libkf5wallet-dev libkf5widgetsaddons-dev \
   libkf5windowsystem-dev libkf5xmlgui-dev libkf5xmlrpcclient-dev libkf5networkmanagerqt-dev \
   libkf5purpose-dev \
-  oxygen-icon-theme gpgsm pinentry-qt xsdcxx
+  breeze-icon-theme gpgsm pinentry-qt xsdcxx
 
 # runtime dependencies (MariaDB, postgresql)
-RUN apt-get install -y --no-install-recommends \
+RUN apt-get update && apt-get install -y --no-install-recommends \
   mariadb-server postgresql
 
 # dependencies for development
-RUN apt-get install -y --no-install-recommends \
+RUN apt-get update && apt-get install -y --no-install-recommends \
   cmake-curses-gui ccache icecc\
   less vim strace qtcreator kdevelop valgrind gdb\
   qt5-doc qt*5-doc

@@ -25,4 +25,4 @@ while getopts ":n" o; do
 done
 shift $((OPTIND-1))
 
-${docker_exe} build --tag kdepim:dev .
+${docker_exe} build --no-cache --tag kdepim:dev .
