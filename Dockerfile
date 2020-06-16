@@ -23,8 +23,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
   libfreetype6-dev make libyaml-perl libyaml-libyaml-perl
 
 # requirements for clazy
-RUN apt-get update && apt-get install -y --no-install-recommends \
-  clang llvm-dev libclang-dev
+#RUN apt-get update && apt-get install -y --no-install-recommends \
+#  clang llvm-dev libclang-dev
 
 # build and install clazy
 #RUN git clone git://anongit.kde.org/clazy.git \
@@ -90,9 +90,7 @@ USER neon
 
 # Clone & setup kdesrc-build
 
-RUN git config --global url."git://anongit.kde.org/".insteadOf kde: && \
-    git config --global url."ssh://git@git.kde.org/".pushInsteadOf kde:
-RUN git clone kde:kdesrc-build
+RUN git clone https://invent.kde.org/sdk/kdesrc-build
 COPY kdesrc-buildrc .kdesrc-buildrc
 COPY kde-env /home/neon/.kde-env
 COPY kdepim-env /home/neon/.kdepim-env
