@@ -53,7 +53,6 @@ build directories (where you can run `make` manually are in /home/neon/kdepim/bu
 The binaries are installed into /home/neon/kdepim/install (and the environment
 of the container is adjusted to work with this installation prefix).
 
-
 ## Development tools
 
 There's [KDevelop](https://www.kdevelop.org) and [QtCreator](https://www.qt.io/ide/)
@@ -65,9 +64,7 @@ with apt-get, or use it from outside of the container.
 
 ## Contributing
 
-Please upload patches to [phabriactor.kde.org](https://phabricator.kde.org) for
-review.
-
+Please send pull requests to [invent.kde.org](https://invent.kde.org).
 
 ## Contact
 
