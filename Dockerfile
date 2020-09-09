@@ -82,8 +82,10 @@ COPY pulse-client.conf /etc/pulse/client.conf
 RUN usermod -a -G audio neon
 
 # Make XDG_RUNTIME_DIR owned by the user
-RUN mkdir -p /run/user/1000 && chown -R neon:neon /run/user/1000/
+RUN mkdir -p /run/user/1000 && chown -R neon:neon /run/user/1000/ && chmod 7700 /run/user/1000/
 RUN mkdir -p /var/run/dbus
+
+
 
 ################# USER actions ####################
 USER neon
