@@ -37,15 +37,16 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 RUN apt-get update && apt-get install -y --no-install-recommends \
   qtbase5-private-dev qtwebengine5-dev libqt5x11extras5-dev qttools5-dev \
   libqt5svg5-dev  libqt5texttospeech5-dev libqt5sql5-mysql libqt5sql5-psql \
-  libqca-qt5-2-dev libqt5networkauth5-dev qtmultimedia5-dev \
+  libqca-qt5-2-dev libqt5networkauth5-dev qt5keychain-dev qtlocation5-dev \
+  qtmultimedia5-dev qtquickcontrols2-5-dev \
   \
-  libassuan-dev bison libgrantlee5-dev libical3-dev libkolabxml-dev \
+  libassuan-dev bison libgrantlee5-dev libical3-dev libkolabxml-dev liblzma-dev \
   libxslt-dev libphonon4qt5-dev libsqlite3-dev libxapian-dev xsltproc \
   libgpgmepp-dev libgpgme-dev libsasl2-dev libldap2-dev libqrencode-dev libdmtx-dev \
   \
   libkf5archive-dev libkf5auth-dev libkf5bookmarks-dev libkf5calendarcore-dev libkf5codecs-dev \
   libkf5completion-dev libkf5config-dev libkf5configwidgets-dev libkf5contacts-dev \
-  libkf5coreaddons-dev libkf5crash-dev libkf5dbusaddons-dev libkf5declarative-dev \
+  libkf5coreaddons-dev libkf5crash-dev libkf5dav-dev libkf5dbusaddons-dev libkf5declarative-dev \
   libkf5dnssd-dev libkf5doctools-dev libkf5emoticons-dev \
   libkf5globalaccel-dev libkf5guiaddons-dev libkf5holidays-dev libkf5i18n-dev libkf5iconthemes-dev \
   libkf5itemmodels-dev libkf5itemviews-dev libkf5jobwidgets-dev libkf5kcmutils-dev \
@@ -55,7 +56,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
   libkf5texteditor-dev libkf5textwidgets-dev libkf5wallet-dev libkf5widgetsaddons-dev \
   libkf5windowsystem-dev libkf5xmlgui-dev libkf5xmlrpcclient-dev libkf5networkmanagerqt-dev \
   libkf5purpose-dev \
-  breeze-icon-theme gpgsm pinentry-qt xsdcxx
+  breeze-icon-theme flex gpgsm osmctools pinentry-qt xsdcxx
 
 # runtime dependencies (MariaDB, postgresql)
 RUN apt-get update && apt-get install -y --no-install-recommends \
