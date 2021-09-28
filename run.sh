@@ -6,12 +6,15 @@ if [ $(id -u) -eq 0 ]; then
 fi
 
 docker_exe="sudo docker"
-container_name="kdepim-dev"
 
 usage()
 {
-    echo "Usage: $0 [-n] homepath"
-    echo "-n    Use nvidia-docker instead of docker executable (see README for details)"
+    echo "Usage: $0 [-n] container | directory"
+    echo "  -n         Use nvidia-docker instead of docker executable (see README for details)"
+    echo "  container  An existing development container name."
+    echo "             See 'docker ps -a'."
+    echo "  directory  Location to use for a new development container."
+    echo "             Final path component will be the container name."
     exit 1
 }
 
@@ -34,6 +37,8 @@ if [ -z $1 ]; then
     usage
 fi
 
+container_name=`basename $1`
+
 # Is kdepim-dev already running?
 num=$(${docker_exe} ps -f name=${container_name} | wc -l)
 if [ ${num} -eq 2 ]; then
@@ -49,8 +54,12 @@ else
     if [ ${num} -eq 2 ]; then
         # Start it and attach to it
         ${docker_exe} start -ai ${container_name}
+    elif [ ! -d $1 -o ! -w $1 ]; then
+        echo "$1 is not a container name or a writable directory"
+        exit 1
     else
         # Create a new container from the kdepim:dev image
+        # using directory $1 for repository check-outs.
         user=$(id -u)
         ${docker_exe} run \
             -ti \
