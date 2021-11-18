@@ -25,9 +25,10 @@ while getopts ":n" o; do
 done
 shift $((OPTIND-1))
 
+container_name="kdepim:dev"
 num=$(${docker_exe} ps -f name=${container_name} | wc -l)
 if [ ${num} -gt 1 ]; then
-    read -p "Do you want to destroy and recreate the existing kdepim:dev container? [y/n] " -n 1 -r
+    read -p "Do you want to destroy and recreate the existing ${container_name} container? [y/n] " -n 1 -r
     echo
     if [[ $REPLY =~ ^[Yy]$ ]]; then
         ${docker_exe} stop ${container_name}
@@ -35,5 +36,5 @@ if [ ${num} -gt 1 ]; then
     fi
 fi
 
-${docker_exe} build --no-cache --tag kdepim:dev .
+${docker_exe} build --no-cache --tag ${container_name} .
 
