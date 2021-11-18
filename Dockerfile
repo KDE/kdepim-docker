@@ -87,7 +87,8 @@ RUN usermod -a -G audio neon
 # Make XDG_RUNTIME_DIR owned by the user
 RUN mkdir -p /run/user/1000 && chown -R neon:neon /run/user/1000/ && chmod 7700 /run/user/1000/
 RUN mkdir -p /var/run/dbus
-
+# Make cache dire owned by the user (needed for kdevelop)
+RUN mkdir -p /home/neon/.cache && chown -R neon: /home/neon/.cache
 
 
 ################# USER actions ####################
