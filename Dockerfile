@@ -95,7 +95,7 @@ USER neon
 
 # Clone & setup kdesrc-build
 
-RUN git clone https://invent.kde.org/sdk/kdesrc-build
+RUN git clone https://invent.kde.org/sdk/kdesrc-build.git
 COPY kdesrc-buildrc .kdesrc-buildrc
 COPY kde-env /home/neon/.kde-env
 COPY kdepim-env /home/neon/.kdepim-env
