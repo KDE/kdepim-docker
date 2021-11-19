@@ -43,7 +43,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
   libassuan-dev bison libgrantlee5-dev libical3-dev libkolabxml-dev liblzma-dev \
   libxslt-dev libphonon4qt5-dev libsqlite3-dev libxapian-dev xsltproc \
   libgpgmepp-dev libgpgme-dev libsasl2-dev libldap2-dev libqrencode-dev libdmtx-dev \
-  libkaccounts-dev \
+  libkaccounts-dev kirigami2-dev \
   \
   libkf5archive-dev libkf5auth-dev libkf5bookmarks-dev libkf5calendarcore-dev libkf5codecs-dev \
   libkf5completion-dev libkf5config-dev libkf5configwidgets-dev libkf5contacts-dev \
