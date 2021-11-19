@@ -1,5 +1,5 @@
 FROM kdeneon/plasma:unstable
-MAINTAINER Daniel Vrátil <dvratil@kde.org>
+MAINTAINER KDE PIM <kde-pim@kde.org>
 
 USER root
 
