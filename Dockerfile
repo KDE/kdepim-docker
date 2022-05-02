@@ -58,6 +58,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
   libkf5texteditor-dev libkf5textwidgets-dev libkf5wallet-dev libkf5widgetsaddons-dev \
   libkf5windowsystem-dev libkf5xmlgui-dev libkf5xmlrpcclient-dev libkf5networkmanagerqt-dev \
   libkf5purpose-dev \
+  libpoppler-private-dev libpoppler-qt5-dev \
   breeze-icon-theme flex gpgsm osmctools pinentry-qt xsdcxx
 
 # runtime dependencies (MariaDB, postgresql)
