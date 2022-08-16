@@ -5,7 +5,7 @@ if [ $(id -u) -eq 0 ]; then
     exit 1
 fi
 
-docker_exe="sudo docker"
+docker_exe="docker"
 
 usage()
 {
