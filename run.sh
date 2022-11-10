@@ -65,9 +65,13 @@ else
             -ti \
             -e DISPLAY \
             -e ICECC_SERVER \
-            -v=/tmp/.X11-unix:/tmp/.X11-unix:rw,z \
-            -v=/run/user/${user}/pulse:/run/user/1000/pulse:rw,z \
-            -v=$1:/home/neon/kdepim:rw,z \
+            -e WAYLAND_DISPLAY \
+            -e XDG_SESSION_TYPE \
+            -v /tmp/.X11-unix:/tmp/.X11-unix:rw,z \
+            -v $XDG_RUNTIME_DIR/pulse:$XDG_RUNTIME_DIR/pulse:rw,z \
+            -v $1:/home/neon/kdepim:rw,z \
+            -v $XDG_RUNTIME_DIR/$WAYLAND_DISPLAY:$XDG_RUNTIME_DIR/$WAYLAND_DISPLAY  \
+            --user=$(id -u):$(id -g) \
             --privileged \
             --name ${container_name} \
             kdepim:dev
