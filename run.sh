@@ -61,16 +61,21 @@ else
         # Create a new container from the kdepim:dev image
         # using directory $1 for repository check-outs.
         user=$(id -u)
-        ${docker_exe} run \
-            -ti \
-            -e DISPLAY \
+        args="-e DISPLAY \
             -e ICECC_SERVER \
             -e WAYLAND_DISPLAY \
             -e XDG_SESSION_TYPE \
             -v /tmp/.X11-unix:/tmp/.X11-unix:rw,z \
             -v $XDG_RUNTIME_DIR/pulse:$XDG_RUNTIME_DIR/pulse:rw,z \
-            -v $1:/home/neon/kdepim:rw,z \
-            -v $XDG_RUNTIME_DIR/$WAYLAND_DISPLAY:$XDG_RUNTIME_DIR/$WAYLAND_DISPLAY  \
+            -v $1:/home/neon/kdepim:rw,z"
+
+        if [ ! -z "$WAYLAND_DISPLAY" ] && [ -e $XDG_RUNTIME_DIR/$WAYLAND_DISPLAY ]; then
+                args="${args} \
+                    -v $XDG_RUNTIME_DIR/$WAYLAND_DISPLAY:$XDG_RUNTIME_DIR/$WAYLAND_DISPLAY"
+       fi
+       ${docker_exe} run \
+            -ti \
+            ${args} \
             --user=$(id -u):$(id -g) \
             --privileged \
             --name ${container_name} \
