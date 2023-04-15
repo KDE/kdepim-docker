@@ -56,7 +56,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
   breeze-icon-theme flex gpgsm osmctools pinentry-qt xsdcxx
 
 RUN if [ "$QTVERSION"  = 6 ] ; \
-  then apt-get install -y --no-install-recommends \
+  then apt-get install -y --no-install-recommends --allow-remove-essential \
+  kio- libkf5*- plasma-desktop- neon-desktop- \
   libkf6archive-dev libkf6auth-dev libkf6bookmarks-dev libkf6calendarcore-dev libkf6codecs-dev \
   libkf6completion-dev libkf6config-dev libkf6configwidgets-dev libkf6contacts-dev \
   libkf6coreaddons-dev libkf6crash-dev libkf6dav-dev libkf6dbusaddons-dev libkf6declarative-dev \
