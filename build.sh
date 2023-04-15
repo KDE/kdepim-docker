@@ -36,5 +36,5 @@ if [ ${num} -gt 1 ]; then
     fi
 fi
 
-${docker_exe} build --no-cache --tag ${container_name} .
+${docker_exe} build --tag ${container_name} --build-arg QTVERSION=5 .
 

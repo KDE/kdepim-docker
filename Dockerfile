@@ -1,5 +1,6 @@
 FROM kdeneon/plasma:unstable
 MAINTAINER KDE PIM <kde-pim@kde.org>
+ARG QTVERSION
 
 USER root
 
@@ -35,14 +36,20 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 # install KDE PIM dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends \
+  libassuan-dev bison libical3-dev libkolabxml-dev liblzma-dev \
+  libxslt-dev libsqlite3-dev libxapian-dev xsltproc \
+  libsasl2-dev libldap2-dev libqrencode-dev libdmtx-dev kross-dev \
+  libpoppler-private-dev \
+  breeze-icon-theme flex gpgsm osmctools pinentry-qt xsdcxx
+
+RUN if [ "$QTVERSION"  = 5 ] ; \
+  then apt-get install -y --no-install-recommends \
   qtbase5-private-dev qtwebengine5-dev libqt5x11extras5-dev qttools5-dev \
   libqt5svg5-dev  libqt5texttospeech5-dev libqt5sql5-mysql libqt5sql5-psql \
   libqca-qt5-2-dev libqt5networkauth5-dev qt5keychain-dev qtlocation5-dev \
   qtmultimedia5-dev qtquickcontrols2-5-dev qtdeclarative5-private-dev \
   \
-  libassuan-dev bison libgrantlee5-dev libical3-dev libkolabxml-dev liblzma-dev \
-  libxslt-dev libphonon4qt5-dev libsqlite3-dev libxapian-dev xsltproc \
-  libgpgmepp-dev libgpgme-dev libsasl2-dev libldap2-dev libqrencode-dev libdmtx-dev \
+  libgrantlee5-dev libphonon4qt5-dev libgpgmepp-dev libgpgme-dev \
   libkaccounts-dev kirigami2-dev \
   \
   libkf5archive-dev libkf5auth-dev libkf5bookmarks-dev libkf5calendarcore-dev libkf5codecs-dev \
@@ -51,15 +58,31 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
   libkf5dnssd-dev libkf5doctools-dev libkf5emoticons-dev \
   libkf5globalaccel-dev libkf5guiaddons-dev libkf5holidays-dev libkf5i18n-dev libkf5iconthemes-dev \
   libkf5itemmodels-dev libkf5itemviews-dev libkf5jobwidgets-dev libkf5kcmutils-dev \
-  libkf5kdelibs4support-dev libkf5kio-dev kross-dev libkf5newstuff-dev \
+  libkf5kdelibs4support-dev libkf5kio-dev libkf5newstuff-dev \
   libkf5notifications-dev libkf5notifyconfig-dev libkf5parts-dev libkf5prison-dev \
   libkf5qqc2desktopstyle-dev libkf5runner-dev \
   libkf5service-dev libkf5sonnet-dev libkf5syntaxhighlighting-dev libkf5syndication-dev \
   libkf5texteditor-dev libkf5textwidgets-dev libkf5wallet-dev libkf5widgetsaddons-dev \
   libkf5windowsystem-dev libkf5xmlgui-dev libkf5xmlrpcclient-dev libkf5networkmanagerqt-dev \
   libkf5purpose-dev \
-  libpoppler-private-dev libpoppler-qt5-dev \
-  breeze-icon-theme flex gpgsm osmctools pinentry-qt xsdcxx
+  libpoppler-qt5-dev \
+  ; else apt-get install -y --no-install-recommends \
+  libkf6archive-dev libkf6auth-dev libkf6bookmarks-dev libkf6calendarcore-dev libkf6codecs-dev \
+  libkf6completion-dev libkf6config-dev libkf6configwidgets-dev libkf6contacts-dev \
+  libkf6coreaddons-dev libkf6crash-dev libkf6dav-dev libkf6dbusaddons-dev libkf6declarative-dev \
+  libkf6dnssd-dev libkf6doctools-dev \
+  libkf6globalaccel-dev libkf6guiaddons-dev libkf6holidays-dev libkf6i18n-dev libkf6iconthemes-dev \
+  libkf6itemmodels-dev libkf6itemviews-dev libkf6jobwidgets-dev libkf6kcmutils-dev \
+  libkf6kio-dev libkf6newstuff-dev \
+  libkf6notifications-dev libkf6notifyconfig-dev libkf6parts-dev libkf6prison-dev \
+  libkf6qqc2desktopstyle-dev libkf6runner-dev \
+  libkf6service-dev libkf6sonnet-dev libkf6syntaxhighlighting-dev libkf6syndication-dev \
+  libkf6texteditor-dev libkf6textwidgets-dev libkf6wallet-dev libkf6widgetsaddons-dev \
+  libkf6windowsystem-dev libkf6xmlgui-dev libkf6networkmanagerqt-dev \
+  libkf6purpose-dev \
+  libpoppler-qt6-dev \
+  ; fi
+
 
 # runtime dependencies (MariaDB, postgresql)
 RUN apt-get update && apt-get install -y --no-install-recommends \
@@ -68,7 +91,10 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 # dependencies for development
 RUN apt-get update && apt-get install -y --no-install-recommends \
   cmake-curses-gui ccache icecc\
-  less vim strace qtcreator kdevelop valgrind gdb\
+  less vim strace kdevelop valgrind gdb gammaray
+
+# currently there is no QT6 documentation
+RUN apt-get install -y --no-install-recommends \
   qt5-doc qt*5-doc
 
 # Make polkit-1 writable - kalarm installs its policy there because
