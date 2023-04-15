@@ -34,6 +34,19 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 #    && make install
 #RUN rm -rf clazy
 
+# runtime dependencies (MariaDB, postgresql)
+RUN apt-get update && apt-get install -y --no-install-recommends \
+  mariadb-server postgresql
+
+# dependencies for development
+RUN apt-get update && apt-get install -y --no-install-recommends \
+  cmake-curses-gui ccache icecc\
+  less vim strace kdevelop valgrind gdb gammaray
+
+# currently there is no QT6 documentation
+#RUN apt-get install -y --no-install-recommends \
+#  qt5-doc qt*5-doc
+
 # install KDE PIM dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends \
   libassuan-dev bison libical3-dev libkolabxml-dev liblzma-dev \
@@ -82,20 +95,6 @@ RUN if [ "$QTVERSION"  = 5 ] ; \
   libkf6purpose-dev \
   libpoppler-qt6-dev \
   ; fi
-
-
-# runtime dependencies (MariaDB, postgresql)
-RUN apt-get update && apt-get install -y --no-install-recommends \
-  mariadb-server postgresql
-
-# dependencies for development
-RUN apt-get update && apt-get install -y --no-install-recommends \
-  cmake-curses-gui ccache icecc\
-  less vim strace kdevelop valgrind gdb gammaray
-
-# currently there is no QT6 documentation
-RUN apt-get install -y --no-install-recommends \
-  qt5-doc qt*5-doc
 
 # Make polkit-1 writable - kalarm installs its policy there because
 # that's where kauth frameworks expects it. This is a development
