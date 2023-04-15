@@ -6,11 +6,13 @@ if [ $(id -u) -eq 0 ]; then
 fi
 
 docker_exe="docker"
+qt_version=5
 
 usage()
 {
-    echo "Usage: $0 [-n] container | directory"
+    echo "Usage: $0 [-n] [-q VERSION ] container | directory"
     echo "  -n         Use nvidia-docker instead of docker executable (see README for details)"
+    echo "  -q         Set the QT version that should be supported in image (default 5)"
     echo "  container  An existing development container name."
     echo "             See 'docker ps -a'."
     echo "  directory  Location to use for a new development container."
@@ -18,11 +20,14 @@ usage()
     exit 1
 }
 
-while getopts "na" o; do
+while getopts "naq:" o; do
     case "${o}" in
         n)
             docker_exe="nvidia-docker"
             ;;
+        q)
+           qt_version="$OPTARG"
+           ;;
         a)
             attach=true
             ;;
@@ -32,6 +37,12 @@ while getopts "na" o; do
     esac
 done
 shift $((OPTIND-1))
+
+if [ "$qt_version" = "6" ]; then
+    base_image="kdepim:qt6-dev"
+else
+    base_image="kdepim:dev"
+fi
 
 if [ -z $1 ]; then
     usage
@@ -79,6 +90,6 @@ else
             --user=$(id -u):$(id -g) \
             --privileged \
             --name ${container_name} \
-            kdepim:dev
+            ${base_image}
     fi
 fi
