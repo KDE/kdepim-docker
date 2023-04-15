@@ -26,7 +26,7 @@ done
 shift $((OPTIND-1))
 
 container_name="kdepim:dev"
-num=$(${docker_exe} ps -f name=${container_name} | wc -l)
+num=$(${docker_exe} images -f reference=${container_name} | wc -l)
 if [ ${num} -gt 1 ]; then
     read -p "Do you want to destroy and recreate the existing ${container_name} container? [y/n] " -n 1 -r
     echo
