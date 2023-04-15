@@ -49,21 +49,36 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 # install KDE PIM dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends \
-  libassuan-dev bison libical3-dev libkolabxml-dev liblzma-dev \
+  libassuan-dev bison libical3-dev liblzma-dev \
   libxslt-dev libsqlite3-dev libxapian-dev xsltproc \
-  libsasl2-dev libldap2-dev libqrencode-dev libdmtx-dev kross-dev \
+  libsasl2-dev libldap2-dev libqrencode-dev libdmtx-dev \
   libpoppler-private-dev \
   breeze-icon-theme flex gpgsm osmctools pinentry-qt xsdcxx
 
-RUN if [ "$QTVERSION"  = 5 ] ; \
+RUN if [ "$QTVERSION"  = 6 ] ; \
   then apt-get install -y --no-install-recommends \
+  libkf6archive-dev libkf6auth-dev libkf6bookmarks-dev libkf6calendarcore-dev libkf6codecs-dev \
+  libkf6completion-dev libkf6config-dev libkf6configwidgets-dev libkf6contacts-dev \
+  libkf6coreaddons-dev libkf6crash-dev libkf6dav-dev libkf6dbusaddons-dev libkf6declarative-dev \
+  libkf6dnssd-dev libkf6doctools-dev \
+  libkf6globalaccel-dev libkf6guiaddons-dev libkf6holidays-dev libkf6i18n-dev libkf6iconthemes-dev \
+  libkf6itemmodels-dev libkf6itemviews-dev libkf6jobwidgets-dev libkf6kcmutils-dev \
+  libkf6kio-dev libkf6newstuff-dev \
+  libkf6notifications-dev libkf6notifyconfig-dev libkf6parts-dev libkf6prison-dev \
+  libkf6qqc2desktopstyle-dev libkf6runner-dev \
+  libkf6service-dev libkf6sonnet-dev libkf6syntaxhighlighting-dev libkf6syndication-dev \
+  libkf6texteditor-dev libkf6textwidgets-dev libkf6wallet-dev libkf6widgetsaddons-dev \
+  libkf6windowsystem-dev libkf6xmlgui-dev libkf6networkmanagerqt-dev \
+  libkf6purpose-dev \
+  libpoppler-qt6-dev \
+  ; else apt-get install -y --no-install-recommends \
   qtbase5-private-dev qtwebengine5-dev libqt5x11extras5-dev qttools5-dev \
   libqt5svg5-dev  libqt5texttospeech5-dev libqt5sql5-mysql libqt5sql5-psql \
   libqca-qt5-2-dev libqt5networkauth5-dev qt5keychain-dev qtlocation5-dev \
   qtmultimedia5-dev qtquickcontrols2-5-dev qtdeclarative5-private-dev \
   \
   libgrantlee5-dev libphonon4qt5-dev libgpgmepp-dev libgpgme-dev \
-  libkaccounts-dev kirigami2-dev \
+  libkaccounts-dev kirigami2-dev libkolabxml-dev kross-dev \
   \
   libkf5archive-dev libkf5auth-dev libkf5bookmarks-dev libkf5calendarcore-dev libkf5codecs-dev \
   libkf5completion-dev libkf5config-dev libkf5configwidgets-dev libkf5contacts-dev \
@@ -79,21 +94,6 @@ RUN if [ "$QTVERSION"  = 5 ] ; \
   libkf5windowsystem-dev libkf5xmlgui-dev libkf5xmlrpcclient-dev libkf5networkmanagerqt-dev \
   libkf5purpose-dev \
   libpoppler-qt5-dev \
-  ; else apt-get install -y --no-install-recommends \
-  libkf6archive-dev libkf6auth-dev libkf6bookmarks-dev libkf6calendarcore-dev libkf6codecs-dev \
-  libkf6completion-dev libkf6config-dev libkf6configwidgets-dev libkf6contacts-dev \
-  libkf6coreaddons-dev libkf6crash-dev libkf6dav-dev libkf6dbusaddons-dev libkf6declarative-dev \
-  libkf6dnssd-dev libkf6doctools-dev \
-  libkf6globalaccel-dev libkf6guiaddons-dev libkf6holidays-dev libkf6i18n-dev libkf6iconthemes-dev \
-  libkf6itemmodels-dev libkf6itemviews-dev libkf6jobwidgets-dev libkf6kcmutils-dev \
-  libkf6kio-dev libkf6newstuff-dev \
-  libkf6notifications-dev libkf6notifyconfig-dev libkf6parts-dev libkf6prison-dev \
-  libkf6qqc2desktopstyle-dev libkf6runner-dev \
-  libkf6service-dev libkf6sonnet-dev libkf6syntaxhighlighting-dev libkf6syndication-dev \
-  libkf6texteditor-dev libkf6textwidgets-dev libkf6wallet-dev libkf6widgetsaddons-dev \
-  libkf6windowsystem-dev libkf6xmlgui-dev libkf6networkmanagerqt-dev \
-  libkf6purpose-dev \
-  libpoppler-qt6-dev \
   ; fi
 
 # Make polkit-1 writable - kalarm installs its policy there because
@@ -123,7 +123,7 @@ USER neon
 # Clone & setup kdesrc-build
 
 RUN git clone https://invent.kde.org/sdk/kdesrc-build.git
-COPY kdesrc-buildrc .kdesrc-buildrc
+COPY kdesrc-buildrc-qt${QTVERSION} .kdesrc-buildrc
 COPY kde-env /home/neon/.kde-env
 COPY kdepim-env /home/neon/.kdepim-env
 COPY start-iceccd.sh /home/neon/.start-iceccd.sh

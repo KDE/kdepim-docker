@@ -7,17 +7,13 @@ global
 
     # Use multiple cores for building. Other options to GNU make may also be
     # set.
-    make-options -j2
+    make-options -j4
 
     # Build in Debug mode - enables Q_ASSERTS and other checks and makes debugging
     # crashes easier. Not suitable for profiling performance (use RelWithDebInfo
     # for that)
     cmake-options -DCMAKE_BUILD_TYPE=Debug
-   
+    cmake-generator Ninja
 end global
 
-#include /home/neon/kdesrc-build/kf5-frameworks-build-include
-include /home/neon/kdesrc-build/kf5-kdepim-build-include
-#include /home/neon/kdesrc-build/kf5-applications-build-include
-#include /home/neon/kdesrc-build/kf5-workspace-build-include
-
+include /home/neon/kdesrc-build/kf6-kdepim-build-include
