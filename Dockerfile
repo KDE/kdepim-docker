@@ -52,7 +52,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
   libassuan-dev bison libical3-dev liblzma-dev \
   libxslt-dev libsqlite3-dev libxapian-dev xsltproc \
   libsasl2-dev libldap2-dev libqrencode-dev libdmtx-dev \
-  libpoppler-private-dev \
+  libpoppler-private-dev libzxing-dev \
   breeze-icon-theme flex gpgsm osmctools pinentry-qt xsdcxx
 
 RUN if [ "$QTVERSION"  = 6 ] ; \
