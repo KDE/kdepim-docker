@@ -13,13 +13,15 @@ RUN echo "/usr/local/nvidia/lib" >> /etc/ld.so.conf.d/nvidia.conf && \
 ENV PATH /usr/local/nvidia/bin:/usr/local/cuda/bin:${PATH}
 ENV LD_LIBRARY_PATH /usr/local/nvidia/lib:/usr/local/nvidia/lib64:${LD_LIBRARY_PATH}
 
+RUN apt install neon-settings-2
+
 # uninstall the KDE PIM that ships in the base image
 RUN apt-get remove -y \
   kdesdk-devenv-dependencies \
   && apt autoremove -y
 
 # Minimal dependencies
-RUN apt-get update && apt-get install -y --no-install-recommends \
+RUN apt-get install -y --no-install-recommends \
   cmake extra-cmake-modules g++ gettext git libboost-all-dev \
   libfreetype6-dev make libyaml-perl libyaml-libyaml-perl
 
@@ -35,11 +37,11 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 #RUN rm -rf clazy
 
 # runtime dependencies (MariaDB, postgresql)
-RUN apt-get update && apt-get install -y --no-install-recommends \
+RUN apt-get install -y --no-install-recommends \
   mariadb-server postgresql
 
 # dependencies for development
-RUN apt-get update && apt-get install -y --no-install-recommends \
+RUN apt-get install -y --no-install-recommends \
   cmake-curses-gui ccache icecc\
   less vim strace kdevelop valgrind gdb gammaray
 
@@ -48,7 +50,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 #  qt5-doc qt*5-doc
 
 # install KDE PIM dependencies
-RUN apt-get update && apt-get install -y --no-install-recommends \
+RUN apt-get install -y --no-install-recommends \
   libassuan-dev bison libical3-dev liblzma-dev \
   libxslt-dev libsqlite3-dev libxapian-dev xsltproc \
   libsasl2-dev libldap2-dev libqrencode-dev libdmtx-dev \
