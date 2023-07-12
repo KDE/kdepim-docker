@@ -1,9 +1,9 @@
 #!/bin/sh
 
-KDEDIR=$(grep kdedir $HOME/.kdesrc-buildrc  | awk '{ print $2 }')
+KDEDIR=$(grep kdedir $XDG_CONFIG_HOME/kdesrc-buildrc  | awk '{ print $2 }')
 
-export KDE_BUILD=$(grep build-dir $HOME/.kdesrc-buildrc  | awk '{ print $2 }')
-export KDE_SRC=$(grep source-dir $HOME/.kdesrc-buildrc  | awk '{ print $2 }')
+export KDE_BUILD=$(grep build-dir $XDG_CONFIG_HOME/kdesrc-buildrc  | awk '{ print $2 }')
+export KDE_SRC=$(grep source-dir $XDG_CONFIG_HOME/kdesrc-buildrc  | awk '{ print $2 }')
 
 ##
 # A function to easily change to the build directory.

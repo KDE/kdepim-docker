@@ -124,18 +124,19 @@ USER neon
 # Clone & setup kdesrc-build
 
 RUN git clone https://invent.kde.org/sdk/kdesrc-build.git
-COPY kdesrc-buildrc-qt${QTVERSION} .kdesrc-buildrc
 COPY kde-env /home/neon/.kde-env
 COPY kdepim-env /home/neon/.kdepim-env
 COPY start-iceccd.sh /home/neon/.start-iceccd.sh
 COPY setup-dbus.sh /home/neon/.setup-dbus.sh
-RUN mkdir kdepim
 
 # Enable the environment
-RUN echo '\n\nsource /home/neon/.kde-env\n' >> ~/.bashrc
-RUN echo 'source /home/neon/.kdepim-env\n' >> ~/.bashrc
-RUN echo 'source /home/neon/.setup-dbus.sh\n' >> ~/.bashrc
-RUN echo 'source /home/neon/.start-iceccd.sh\n' >> ~/.bashrc
+RUN echo '\n\nsource /home/neon/.kdepim-env' >> ~/.bashrc
+RUN echo 'source /home/neon/.kde-env' >> ~/.bashrc
+RUN echo 'source /home/neon/.setup-dbus.sh' >> ~/.bashrc
+RUN echo 'source /home/neon/.start-iceccd.sh' >> ~/.bashrc
+
+RUN mkdir kdepim
+COPY kdesrc-buildrc-qt${QTVERSION} /home/neon/kdepim/config/kdesrc-buildrc
 
 # Make the ccache bigger (the default 5G is not enough for PIM)
 RUN mkdir /home/neon/kdepim/.ccache \
